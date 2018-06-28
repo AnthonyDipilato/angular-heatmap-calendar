@@ -18,18 +18,18 @@ D3
 `var myApp = angular.module('myApp', ['heatmapCalendar']);` 
 
 3. Include the directive in your page's code
-`<heatmap-calendar options="options" callback="clicked(date)" ng-model="values"></heatmap-calendar>`
-
-### Options
------------------
-`<heatmap-calendar 
+<heatmap-calendar 
         max-color="#144592" 
         verb="logged" 
         units="['mile','miles']" 
         tooltips="true" 
         callback="clicked(date)" 
         ng-model="values">
-</heatmap-calendar>`
+</heatmap-calendar>
+
+### Options
+-----------------
+
 
 | Option        | type           | description  |
 | ------------- | ------------- | ----- |
