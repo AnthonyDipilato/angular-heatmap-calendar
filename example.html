@@ -33,18 +33,26 @@
                         return output;
                     }
                     
+                    // Seed values
                     $scope.values = buildTestData();
+                    // Options
                     $scope.options ={
-                        tooltips: false
+                        tooltips:   true,
+                        cellColor:  '#144592' // the full dark color
                     };
-                   
+                    
+                    // Callback function for date clicked
+                    $scope.clicked = function(date){
+                        console.log('Date Clicked: '+date);
+                    };
+                    
                 }]);
             
         </script>
         <!-- Initialize App -->
         <div ng-app="Example" ng-controller="MainCtrl">
             <!-- Heatmap Calendar Directive -->
-            <heatmap-calendar options="options" data="values"></heatmap-calendar>
+            <heatmap-calendar options="options" callback="clicked(date)" ng-model="values"></heatmap-calendar>
             
             
             

@@ -8,10 +8,13 @@ angular.module('heatmapCalendar', [])
     .directive('heatmapCalendar', ['calendarConfig', function(calendarConfig) {
         return {
             restrict: 'EA',
-            scope: {data:'=data', options:'=options'},
+            scope: {data:'=ngModel', options:'=options', callback:'&callback'},
             replace: true,
             template: '<div class="heatmap-calendar"></div>',
-            link: function(scope, element) {
+            link: function(scope, element, attrs, controller) {
+                
+                // setup callback if set
+                var callback = (scope.callback) ? scope.callback : angular.noop;
                 
                 // Format settings
                 var width = 1024,
@@ -32,7 +35,8 @@ angular.module('heatmapCalendar', [])
                     date_normal = d3.timeFormat("%m/%d/%Y");
             
                 // Color range
-                var color = d3.scaleLinear().range(['white', '#144592'])
+                if(typeof scope.options.cellColor === 'undefined') scope.options.cellColor = '#000';
+                var color = d3.scaleLinear().range(['white', scope.options.cellColor])
                         .domain([0, 1]);
                 
                 // Define the div for the tooltip
@@ -82,17 +86,21 @@ angular.module('heatmapCalendar', [])
                                 .attr("data-toggle", "tooltip")
                                 .attr("class", "heatmap-day")
                                 .on("mouseover", function(d) {
-                                    tooltip.transition()		
-                                        .duration(200)		
-                                        .style("opacity", .9);		
-                                    tooltip.html(d3.select(this).attr("data-title"))	
-                                        .style("left", (d3.event.pageX) + "px")		
-                                        .style("top", (d3.event.pageY - 28) + "px");	
-                                    })					
-                                .on("mouseout", function(d) {		
+                                    if(scope.options.tooltips){
+                                        tooltip.transition()		
+                                            .duration(200)		
+                                            .style("opacity", .9);		
+                                        tooltip.html(d3.select(this).attr("data-title"))	
+                                            .style("left", (d3.event.pageX) + "px")		
+                                            .style("top", (d3.event.pageY - 28) + "px");	
+                                    }
+                                })					
+                                .on("mouseout", function(d) {
+                                    if(scope.options.tooltips){
                                     tooltip.transition()		
                                         .duration(500)		
                                         .style("opacity", 0);	
+                                    }
                                 });
                             weekCheck(d);
                         })
@@ -134,12 +142,12 @@ angular.module('heatmapCalendar', [])
                         var units = (data['$'+d]['amount'] === 1) ? 'mile' : 'miles';
                         var message = '<b>' + data['$'+d]['amount'] + ' ' + units + '</b> logged <br> on ' + fixDate(d);
                         return message;
+                    })
+                    .on("click", function(d){
+                        callback({date: d});
                     });  
                     
-                // Check if tooltips enabled
-                if(scope.options.tooltips){
-                    $(".heatmap-day").tooltip({container: 'body', html: true, placement:'top'}); 
-                }
+                
                 
             }
 
