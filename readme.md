@@ -28,7 +28,8 @@ var myApp = angular.module('myApp', ['heatmapCalendar']);
         tooltips="true" 
         callback="clicked(date)" 
         ng-model="values">
-</heatmap-calendar>```
+</heatmap-calendar>
+```
 
 ## Options
 
