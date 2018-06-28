@@ -2,7 +2,6 @@
     background: #fff;
     margin: 5px;
 }
-
 .month {
     stroke: #333;
     stroke-width: 1px;
@@ -14,7 +13,4 @@
 .monthLabel{
     fill: #666;
     font-size: 12px;
-}
-.monthLabel:hover{
-    fill: #ff3300
 }
