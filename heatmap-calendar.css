@@ -17,3 +17,16 @@
 .heatmap-day{
     
 }
+.heatmap-tooltip {	
+    position: absolute;			
+    text-align: center;			
+    width: 150px;					
+    height: 40px;					
+    padding: 2px;				
+    font: 14px helvetica;		
+    background: white;	
+    border: 1px solid;		
+    border-radius: 4px;	
+    border-color: #6086c4;
+    pointer-events: none;			
+}

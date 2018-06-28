@@ -29,10 +29,16 @@ angular.module('heatmapCalendar', [])
                     percent     = d3.timeFormat(".1%"),
                     format      = d3.timeFormat("%Y%m%d"),
                     date_format = d3.timeFormat("%Y-%m-%d");
+                    date_normal = d3.timeFormat("%m/%d/%Y");
             
                 // Color range
                 var color = d3.scaleLinear().range(['white', '#144592'])
                         .domain([0, 1]);
+                
+                // Define the div for the tooltip
+                var tooltip = d3.select(element[0]).append("div")	
+                    .attr("class", "heatmap-tooltip")				
+                    .style("opacity", 0);
                 
                 // Initialize chart
                 var svg = d3.select(element[0]).selectAll("svg")
@@ -59,6 +65,7 @@ angular.module('heatmapCalendar', [])
                 function weekCheck(d){
                     if(parseInt(day(d)) === 6){weekCount++;}
                 }
+                
                 var rect = svg.selectAll(".day")
                         .data(d3.timeDays(moment().subtract(1,"years"), moment()))
                         .enter()
@@ -69,9 +76,24 @@ angular.module('heatmapCalendar', [])
                             d3.select(this)
                                 .attr("y", day(d) * (cellSize + 2))
                                 .attr("x", weekCount * (cellSize + 2))
-                                .attr("date-month", month(d))
+                                .attr("data-month", month(d))
                                 .attr("data-date", date_format(d))
-                                .attr("class", "heatmap-day");
+                                .attr("data-title", "<b>No mileage logged</b><br> on " + date_normal(d))
+                                .attr("data-toggle", "tooltip")
+                                .attr("class", "heatmap-day")
+                                .on("mouseover", function(d) {
+                                    tooltip.transition()		
+                                        .duration(200)		
+                                        .style("opacity", .9);		
+                                    tooltip.html(d3.select(this).attr("data-title"))	
+                                        .style("left", (d3.event.pageX) + "px")		
+                                        .style("top", (d3.event.pageY - 28) + "px");	
+                                    })					
+                                .on("mouseout", function(d) {		
+                                    tooltip.transition()		
+                                        .duration(500)		
+                                        .style("opacity", 0);	
+                                });
                             weekCheck(d);
                         })
                         .attr("fill",'#ebedf0')
@@ -86,7 +108,7 @@ angular.module('heatmapCalendar', [])
                         .attr("transform", function(d, i) { return "translate(" + (((i+1) * 50)+8) + ",0)"; })
                         .style("text-anchor", "end")
                         .attr("dy", "-.25em")
-                        .attr("class", "heatmap-month-label ")
+                        .attr("class", "heatmap-month-label")
                         .attr("data-month", function(d,i){ return month_labels.indexOf(months_resorted[i]) + 1; })
                         .text(function(d,i){ return months_resorted[i]; });
                 
@@ -110,13 +132,13 @@ angular.module('heatmapCalendar', [])
                     .attr("fill", function(d) {return color(data['$'+d]['percent']); })
                     .attr("data-title", function(d) {
                         var units = (data['$'+d]['amount'] === 1) ? 'mile' : 'miles';
-                        var message = '<b>' + data['$'+d]['amount'] + ' ' + units + '</b> logged on ' + fixDate(d);
+                        var message = '<b>' + data['$'+d]['amount'] + ' ' + units + '</b> logged <br> on ' + fixDate(d);
                         return message;
                     });  
                     
                 // Check if tooltips enabled
                 if(scope.options.tooltips){
-                    $("rect").tooltip({container: 'body', html: true, placement:'top'}); 
+                    $(".heatmap-day").tooltip({container: 'body', html: true, placement:'top'}); 
                 }
                 
             }
