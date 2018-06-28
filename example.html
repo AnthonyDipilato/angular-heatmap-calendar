@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Angular Heatmap Calendar</title>
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="heatmap-calendar.css">
+        <link rel="icon" href="data:,">
+    </head>
+    <body>
+        
+        <!-- Dependencies -->
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script>
+        <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></stript>
+        <script src="https://unpkg.com/tooltip.js@1.2.0/dist/umd/tooltip.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script> 
+    
+        <script src="heatmap-calendar.js"></script>
+        <!-- Setup Angular App -->
+        <script>
+            angular.module('Example', ['heatmapCalendar']).
+                controller('MainCtrl', ['$scope', function ($scope) {
+                    function buildTestData(){
+                        var output = [];
+                        for(var i = 0; i < 200; i++){
+                            var randDay = Math.floor(Math.random() * (365 - 1)) + 1;
+                            var randValue  = Math.floor(Math.random() * (100 - 1)) + 1;
+                            var dateString = moment().subtract(randDay,"days").format("YYYYMMDD");
+                            output[i] = {'date': dateString, 'value': randValue};
+                        }
+                        return output;
+                    }
+                    
+                    $scope.values = buildTestData();
+                }]);
+            
+        </script>
+        <!-- Initialize App -->
+        <div ng-app="Example" ng-controller="MainCtrl">
+            <!-- Heatmap Calendar Directive -->
+            <heatmap-calendar options="options" data="values"></heatmap-calendar>
+            
+            
+            
+        </div>
+        
+        
+    </body>
+    
+</html>
