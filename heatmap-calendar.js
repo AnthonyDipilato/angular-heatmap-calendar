@@ -16,7 +16,8 @@ angular.module('heatmapCalendar', [])
                 // setup callback if set
                 var callback = (scope.callback) ? scope.callback : angular.noop;
                 // check if units set
-                var unit_names = (scope.units) ? scope.units : ['unit','units'];
+                var unit_names = (scope.units) ? scope.units : ['unit','units','units'];
+                if(typeof unit_names[2] === 'undefined') unit_names[2] = unit_names[1];
                 // check if verb is set
                 var verb = (scope.verb) ? scope.verb : 'logged';
                 // Color range
@@ -87,7 +88,7 @@ angular.module('heatmapCalendar', [])
                                 .attr("x", weekCount * (cellSize + 2))
                                 .attr("data-month", month(d))
                                 .attr("data-date", date_format(d))
-                                .attr("data-title", "<b>No " + unit_names[1] + " " + verb + "</b><br> on " + date_normal(d))
+                                .attr("data-title", "<b>No " + unit_names[2] + " " + verb + "</b><br> on " + date_normal(d))
                                 .attr("data-toggle", "tooltip")
                                 .attr("class", "heatmap-day")
                                 .on("mouseover", function(d) {
