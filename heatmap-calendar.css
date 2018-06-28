@@ -1,16 +1,19 @@
-.chart {
+.heatmap-chart {
     background: #fff;
     margin: 5px;
 }
-.month {
+.heatmap-month {
     stroke: #333;
     stroke-width: 1px;
 }
-.dayLabel{
+.heatmap-day-label{
     fill: #666;
     font-size: 8px;
 }
-.monthLabel{
+.heatmap-month-label{
     fill: #666;
     font-size: 12px;
+}
+.heatmap-day{
+    
 }

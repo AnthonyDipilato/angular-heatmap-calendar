@@ -50,7 +50,7 @@ angular.module('heatmapCalendar', [])
                     svg.append("text")
                         .attr("transform", "translate( -5," + y + ")")
                         .style("text-anchor", "end")
-                        .attr("class", "dayLabel")
+                        .attr("class", "heatmap-day-label")
                         .text(function(d) { return day_labels[i]; }); 
                  }
                  
@@ -71,12 +71,11 @@ angular.module('heatmapCalendar', [])
                                 .attr("x", weekCount * (cellSize + 2))
                                 .attr("date-month", month(d))
                                 .attr("data-date", date_format(d))
-                                .attr("class", "day");
+                                .attr("class", "heatmap-day");
                             weekCheck(d);
                         })
                         .attr("fill",'#ebedf0')
                         .datum(format);
-                
                 
                 // Month Labels
                 var startMonth = parseInt(moment().format("MM"));
@@ -87,8 +86,9 @@ angular.module('heatmapCalendar', [])
                         .attr("transform", function(d, i) { return "translate(" + (((i+1) * 50)+8) + ",0)"; })
                         .style("text-anchor", "end")
                         .attr("dy", "-.25em")
-                        .attr("class", function(d,i){ return "monthLabel "+months_resorted[i]; })
-                        .text(function(d,i){ return months_resorted[i] });
+                        .attr("class", "heatmap-month-label ")
+                        .attr("data-month", function(d,i){ return month_labels.indexOf(months_resorted[i]) + 1; })
+                        .text(function(d,i){ return months_resorted[i]; });
                 
                 // Find max value
                 var value_max = d3.max(scope.data, function(d) { return d.value; });
@@ -113,7 +113,11 @@ angular.module('heatmapCalendar', [])
                         var message = '<b>' + data['$'+d]['amount'] + ' ' + units + '</b> logged on ' + fixDate(d);
                         return message;
                     });  
-                $("rect").tooltip({container: 'body', html: true, placement:'top'}); 
+                    
+                // Check if tooltips enabled
+                if(scope.options.tooltips){
+                    $("rect").tooltip({container: 'body', html: true, placement:'top'}); 
+                }
                 
             }
 
