@@ -14,18 +14,21 @@ D3
 
 2. Add heatmap calendar as a dependency in your app.
 
-`var myApp = angular.module('myApp', ['heatmapCalendar']);` 
+```javascript
+var myApp = angular.module('myApp', ['heatmapCalendar']);
+```
 
 3. Include the directive in your page's code
 
-`<heatmap-calendar 
+```javascript
+<heatmap-calendar 
         max-color="#144592" 
         verb="logged" 
         units="['mile','miles']" 
         tooltips="true" 
         callback="clicked(date)" 
         ng-model="values">
-</heatmap-calendar>`
+</heatmap-calendar>```
 
 ## Options
 
