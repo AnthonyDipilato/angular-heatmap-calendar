@@ -2,7 +2,7 @@
 Angular directive for a heatmap calendar inspired by [GitHub's Contribution Calendar](https://help.github.com/articles/viewing-contributions-on-your-profile/#contributions-calendar)
 
 ## Demo
-[Demo](https://jsfiddle.net/Anthony780/L71r6fy3/)  
+[Demo](https://jsfiddle.net/Anthony780/hfLuz3sr/)  
 
 ## Requirements
 AngularJS

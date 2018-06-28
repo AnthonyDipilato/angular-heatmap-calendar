@@ -17,6 +17,9 @@
 .heatmap-day{
     
 }
+.heatmap-pointer{
+    cursor:pointer;
+}
 .heatmap-tooltip {	
     position: absolute;			
     text-align: center;			

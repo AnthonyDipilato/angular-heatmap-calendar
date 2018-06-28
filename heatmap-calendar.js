@@ -144,6 +144,7 @@ angular.module('heatmapCalendar', [])
                 }
                 rect.filter(function(d) { return '$'+d in data; })
                     .attr("fill", function(d) {return color(data['$'+d]['percent']); })
+                    .attr("class","heatmap-day heatmap-pointer")
                     .attr("data-title", function(d) {
                         var units = (data['$'+d]['amount'] === 1) ? unit_names[0] : unit_names[1];
                         var message = '<b>' + data['$'+d]['amount'] + ' ' + units + '</b> ' + verb + ' <br> on ' + fixDate(d);
