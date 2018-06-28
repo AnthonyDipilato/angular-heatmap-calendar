@@ -6,15 +6,18 @@ Angular directive for a heatmap calendar inspired by [GitHub's Contribution Cale
 
 ## Requirements
 AngularJS
+
 D3
 
 ## Setup
 1. Include `heatmap.calendar.js` and `heatmap-calendar.css`
 
 2. Add heatmap calendar as a dependency in your app.
+
 `var myApp = angular.module('myApp', ['heatmapCalendar']);` 
 
 3. Include the directive in your page's code
+
 `<heatmap-calendar 
         max-color="#144592" 
         verb="logged" 
