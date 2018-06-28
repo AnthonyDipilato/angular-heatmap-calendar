@@ -2,7 +2,6 @@
 <html>
     <head>
         <title>Angular Heatmap Calendar</title>
-        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="heatmap-calendar.css">
         <link rel="icon" href="data:,">
     </head>
@@ -10,13 +9,8 @@
         
         <!-- Dependencies -->
         <script src="https://d3js.org/d3.v5.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script>
-        <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></stript>
-        <script src="https://unpkg.com/tooltip.js@1.2.0/dist/umd/tooltip.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script> 
-    
         <script src="heatmap-calendar.js"></script>
         <!-- Setup Angular App -->
         <script>
@@ -35,13 +29,6 @@
                     
                     // Seed values
                     $scope.values = buildTestData();
-                    // Options
-                    $scope.options ={
-                        tooltips:   true,
-                        cellColor:  '#144592',  // the full dark color
-                        units: ['mile','miles'],  // [singular, plural]
-                        verb: 'logged'          // logged, submited, created etc...
-                    };
                     
                     // Callback function for date clicked
                     $scope.clicked = function(date){
@@ -54,12 +41,15 @@
         <!-- Initialize App -->
         <div ng-app="Example" ng-controller="MainCtrl">
             <!-- Heatmap Calendar Directive -->
-            <heatmap-calendar options="options" callback="clicked(date)" ng-model="values"></heatmap-calendar>
-            
-            
-            
+            <heatmap-calendar 
+                max-color="#144592" 
+                verb="logged" 
+                units="['mile','miles']" 
+                tooltips="true" 
+                callback="clicked(date)" 
+                ng-model="values">
+            </heatmap-calendar>
         </div>
-        
         
     </body>
     

@@ -8,17 +8,20 @@ angular.module('heatmapCalendar', [])
     .directive('heatmapCalendar', ['calendarConfig', function(calendarConfig) {
         return {
             restrict: 'EA',
-            scope: {data:'=ngModel', options:'=options', callback:'&callback'},
+            scope: {data:'=ngModel', tooltips:'=tooltips', units:'=units', verb:'@verb', maxColor:'@maxColor', test:'=test', options:'=options', callback:'&callback'},
             replace: true,
             template: '<div class="heatmap-calendar"></div>',
-            link: function(scope, element, attrs, controller) {
+            link: function(scope, element) {
                 
                 // setup callback if set
                 var callback = (scope.callback) ? scope.callback : angular.noop;
                 // check if units set
-                var unit_names = (scope.options.units) ? scope.options.units : ['unit','units'];
+                var unit_names = (scope.units) ? scope.units : ['unit','units'];
                 // check if verb is set
-                var verb = (scope.options.verb) ? scope.options.verb : 'logged';
+                var verb = (scope.verb) ? scope.verb : 'logged';
+                // Color range
+                if(typeof scope.maxColor === 'undefined') scope.maxColor = '#000';
+                
                 
                 // Format settings
                 var width = 1024,
@@ -38,9 +41,7 @@ angular.module('heatmapCalendar', [])
                     date_format = d3.timeFormat("%Y-%m-%d");
                     date_normal = d3.timeFormat("%m/%d/%Y");
             
-                // Color range
-                if(typeof scope.options.cellColor === 'undefined') scope.options.cellColor = '#000';
-                var color = d3.scaleLinear().range(['white', scope.options.cellColor])
+                var color = d3.scaleLinear().range(['white', scope.maxColor])
                         .domain([0, 1]);
                 
                 // Define the div for the tooltip
@@ -90,7 +91,7 @@ angular.module('heatmapCalendar', [])
                                 .attr("data-toggle", "tooltip")
                                 .attr("class", "heatmap-day")
                                 .on("mouseover", function(d) {
-                                    if(scope.options.tooltips){
+                                    if(scope.tooltips){
                                         tooltip.transition()		
                                             .duration(200)		
                                             .style("opacity", .9);		
@@ -100,7 +101,7 @@ angular.module('heatmapCalendar', [])
                                     }
                                 })					
                                 .on("mouseout", function(d) {
-                                    if(scope.options.tooltips){
+                                    if(scope.tooltips){
                                     tooltip.transition()		
                                         .duration(500)		
                                         .style("opacity", 0);	
