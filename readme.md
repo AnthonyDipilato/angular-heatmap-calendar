@@ -1,17 +1,14 @@
-# Simple Mileage
+# Angular Heatmap Calendar
 Angular directive for a heatmap calendar inspired by [GitHub's Contribution Calendar](https://help.github.com/articles/viewing-contributions-on-your-profile/#contributions-calendar)
 
-### Demo
------------------
+## Demo
 [Demo](https://jsfiddle.net/Anthony780/L71r6fy3/)  
 
-### Requirements
------------------
+## Requirements
 AngularJS
 D3
 
-### Setup
------------------
+## Setup
 1. Include `heatmap.calendar.js` and `heatmap-calendar.css`
 
 2. Add heatmap calendar as a dependency in your app.
@@ -27,8 +24,7 @@ D3
         ng-model="values">
 </heatmap-calendar>
 
-### Options
------------------
+## Options
 
 
 | Option        | type           | description  |
@@ -42,6 +38,5 @@ D3
 
 
 
-### Author
------------------
+## Author
 Anthony DiPilato, anthony@bumbol.com
