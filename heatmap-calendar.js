@@ -60,9 +60,7 @@ angular.module('heatmapCalendar', [])
                 var render = function(calendar_data){
                     // clear out existing svg for rerender
                     d3.select(element[0]).selectAll("svg").remove();
-                    console.log('render()');
                     // Initialize chart
-                    console.log(now.getFullYear());
                     var svg = d3.select(element[0])
                         .append("svg")
                         .attr("width", '100%')
@@ -103,16 +101,16 @@ angular.module('heatmapCalendar', [])
                                     .attr("data-month", month(d))
                                     .attr("data-date", date_format(d))
                                     .attr("data-title", "<b>No " + unit_names[2] + " " + verb + "</b><br> on " + date_normal(d))
-                                    .attr("data-toggle", "tooltip")
                                     .attr("class", "heatmap-day")
                                     .on("mouseover", function(d) {
                                         if(scope.tooltips){
+                                            var mouse = d3.mouse(this);
                                             tooltip.transition()		
                                                 .duration(200)		
                                                 .style("opacity", .9);		
                                             tooltip.html(d3.select(this).attr("data-title"))	
-                                                .style("left", (d3.event.pageX) + "px")		
-                                                .style("top", (d3.event.pageY - 28) + "px");	
+                                                .style("left", (d3.event.layerX) + "px")		
+                                                .style("top", (d3.event.layerY - 50) + "px");
                                         }
                                     })					
                                     .on("mouseout", function(d) {
