@@ -83,8 +83,11 @@ angular.module('heatmapCalendar', [])
                         if(parseInt(day(d)) === 6){weekCount++;}
                     }
 
+                    var d = new Date();
+                    var last_year = d.setMonth(d.getMonth() - 12);
+                    
                     var rect = svg.selectAll(".day")
-                            .data(d3.timeDays(moment().subtract(1,"years"), moment()))
+                            .data(d3.timeDays(last_year, new Date()))
                             .enter()
                             .append("rect")
                             .attr("width", cellSize)
@@ -121,7 +124,8 @@ angular.module('heatmapCalendar', [])
                             .datum(format);
 
                     // Month Labels
-                    var startMonth = parseInt(moment().format("MM"));
+                    d = new Date();
+                    var startMonth = parseInt(d.getMonth());
                     var months_resorted = month_labels.slice(startMonth).concat(month_labels.slice(0,startMonth));
                     var legend = svg.selectAll(".legend")
                             .data(months_resorted)
