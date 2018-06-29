@@ -37,6 +37,9 @@ angular.module('heatmapCalendar', [])
                 // Week Labels
                 var day_labels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
                 
+                // Date for now
+                var now = new Date();
+                
                 // Date formatting
                 var day         = d3.timeFormat("%w"),
                     month       = d3.timeFormat("%m"),
@@ -58,9 +61,9 @@ angular.module('heatmapCalendar', [])
                     d3.select(element[0]).selectAll("svg").remove();
                     console.log('render()');
                     // Initialize chart
-                    var svg = d3.select(element[0]).selectAll("svg")
-                        .data(d3.range(2018, 2019))
-                        .enter().append("svg")
+                    console.log(now.getFullYear());
+                    var svg = d3.select(element[0])
+                        .append("svg")
                         .attr("width", '100%')
                         .attr("viewBox",'0 0 ' + width + ' ' + height)
                         .attr('id', 'calendarContainer')
@@ -87,7 +90,7 @@ angular.module('heatmapCalendar', [])
                     var last_year = d.setMonth(d.getMonth() - 12);
                     
                     var rect = svg.selectAll(".day")
-                            .data(d3.timeDays(last_year, new Date()))
+                            .data(d3.timeDays(last_year, now))
                             .enter()
                             .append("rect")
                             .attr("width", cellSize)
