@@ -28,7 +28,7 @@ angular.module('heatmapCalendar', [])
                 if(typeof scope.maxColor === 'undefined') scope.maxColor = '#000';
                 
                 // Format settings
-                var width = 1024,
+                var width = 675,
                     height = 125,
                     cellSize = 10;
 
@@ -58,6 +58,7 @@ angular.module('heatmapCalendar', [])
                 
                 
                 var render = function(calendar_data){
+                    // clear out existing svg for rerender
                     d3.select(element[0]).selectAll("svg").remove();
                     console.log('render()');
                     // Initialize chart
@@ -66,9 +67,9 @@ angular.module('heatmapCalendar', [])
                         .append("svg")
                         .attr("width", '100%')
                         .attr("viewBox",'0 0 ' + width + ' ' + height)
-                        .attr('id', 'calendarContainer')
+                        .attr("id", "calendarContainer")
                         .append("g")
-                        .attr("transform", "translate(" + ((width - cellSize * 53) / 2) + "," + ((height - cellSize * 7 - 1) / 2) + ")");
+                        .attr("transform", "translate(25,25)");
 
                     // Day Labels
                     for (var i=0; i<7; i++){
