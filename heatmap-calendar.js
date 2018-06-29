@@ -58,6 +58,8 @@ angular.module('heatmapCalendar', [])
                 
                 
                 var render = function(calendar_data){
+                    // make sure value is not null
+                    if(calendar_data === null || typeof calendar_data === 'undefined') calendar_data = [];
                     // clear out existing svg for rerender
                     d3.select(element[0]).selectAll("svg").remove();
                     // Initialize chart
