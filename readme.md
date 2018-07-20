@@ -25,13 +25,13 @@ var myApp = angular.module('myApp', ['heatmapCalendar']);
 3. Include the directive in your page's code
 
 ```javascript
-<heatmap-calendar 
-        max-color="#144592" 
-        verb="logged" 
-        units="['mile','miles','mileage']" 
-        tooltips="true" 
-        callback="clicked(date)" 
-        ng-model="values">
+<heatmap-calendar
+        max-color="#144592"
+        verb="logged"
+        units="['mile','miles','mileage']"
+        tooltips="true"
+        callback="clicked(date)"
+        ng-model="values"
 </heatmap-calendar>
 ```
 
@@ -44,7 +44,7 @@ var myApp = angular.module('myApp', ['heatmapCalendar']);
 | verb | string | The verb used for the units (logged, submitted, completed) |
 | units | array(3) | The units displayed in the tooltips. `['singular','plural','none']`|
 | tooltips | boolean | Enable or disable the tooltips. Default is true. |
-| callback | function(date) | The function called when a date with a value is clicked. | 
+| callback | function(date) | The function called when a date with a value is clicked. |
 | ng-model | array | The values used to generate the data. `item = { date: 'YYYYMMDD', value: 0}` |
 
 

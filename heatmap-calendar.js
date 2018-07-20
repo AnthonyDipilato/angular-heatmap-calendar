@@ -4,10 +4,9 @@
 */
 
 angular.module('heatmapCalendar', [])
-    .constant('calendarConfig', {})
-    .directive('heatmapCalendar', ['calendarConfig', function(calendarConfig) {
+    .directive('heatmapCalendar', [ function() {
         return {
-            restrict: 'EA',
+            restrict: 'E',
             scope: {data:'=ngModel', tooltips:'=tooltips', units:'=units', verb:'@verb', maxColor:'@maxColor', test:'=test', callback:'&callback'},
             replace: true,
             template: '<div class="heatmap-calendar"></div>',
